@@ -9,7 +9,8 @@ from flask import (flash,
                    request,
                    session,
                    render_template,
-                   g)
+                   g,
+                   jsonify)
 from flask_babel import gettext
 from flask_login import login_required
 
@@ -18,8 +19,11 @@ from application import app
 from application.flicket.forms.flicket_forms import CreateTicketForm
 from application.flicket.models.flicket_models_ext import FlicketTicketExt
 
+from application.utils.torch_utils import predict_sentiment
 
 # create ticket
+
+
 @flicket_bp.route(app.config['FLICKET'] + 'ticket_create/', methods=['GET', 'POST'])
 @login_required
 def ticket_create():
@@ -46,3 +50,17 @@ def ticket_create():
 
     title = gettext('Create Ticket')
     return render_template('flicket_create.html', title=title, form=form)
+
+
+@flicket_bp.route(app.config['FLICKET'] + 'predict/', methods=['GET'])
+@login_required
+def predict():
+    try:
+        prediction = predict_sentiment(
+            'Movie is the worst one I have ever seen!! The story has no meaning at all')
+        data = {'prediction': prediction.item(
+        ), 'class_name': str(prediction.item())}
+        return jsonify(data)
+    except:
+        return jsonify({'error': 'error during prediction'})
+    # return render_template('flicket_create.html', title=title, form=form)
