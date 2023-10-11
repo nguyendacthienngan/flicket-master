@@ -44,7 +44,8 @@ def tickets_view(page, is_my_view=False, subscribed=False):
     created_id = request.args.get('created_id')
 
     if form.validate_on_submit():
-        redirect_url = FlicketTicket.form_redirect(form, url='flicket_bp.tickets')
+        redirect_url = FlicketTicket.form_redirect(
+            form, url='flicket_bp.tickets')
 
         return redirect(redirect_url)
 
@@ -53,8 +54,10 @@ def tickets_view(page, is_my_view=False, subscribed=False):
         args = request.args.copy()
         del args['sort']
 
-        response = make_response(redirect(url_for('flicket_bp.tickets', **args)))
-        response.set_cookie('tickets_sort', arg_sort, max_age=2419200, path=url_for('flicket_bp.tickets', **args))
+        response = make_response(
+            redirect(url_for('flicket_bp.tickets', **args)))
+        response.set_cookie('tickets_sort', arg_sort, max_age=2419200, path=url_for(
+            'flicket_bp.tickets', **args))
 
         return response
 
@@ -102,7 +105,8 @@ def tickets_view(page, is_my_view=False, subscribed=False):
                                              base_url='flicket_bp.tickets'))
 
     if set_cookie:
-        response.set_cookie('tickets_sort', sort, max_age=2419200, path=url_for('flicket_bp.tickets'))
+        response.set_cookie('tickets_sort', sort, max_age=2419200,
+                            path=url_for('flicket_bp.tickets'))
 
     return response
 
@@ -144,13 +148,16 @@ def tickets_csv():
 
         csv_contents += '{},{},"{}",{},{},{},{} - {},{},{},{}{}\n'.format(ticket.id_zfill,
                                                                           ticket.ticket_priority.priority,
-                                                                          clean_csv_data(ticket.title),
+                                                                          clean_csv_data(
+                                                                              ticket.title),
                                                                           ticket.user.name,
-                                                                          ticket.date_added.strftime("%Y-%m-%d"),
+                                                                          ticket.date_added.strftime(
+                                                                              "%Y-%m-%d"),
                                                                           ticket.num_replies,
                                                                           clean_csv_data(
                                                                               ticket.category.department.department),
-                                                                          clean_csv_data(ticket.category.category),
+                                                                          clean_csv_data(
+                                                                              ticket.category.category),
                                                                           ticket.current_status.status,
                                                                           _name,
                                                                           app.config["base_url"],
@@ -161,7 +168,7 @@ def tickets_csv():
         csv_contents,
         mimetype='text/csv',
         headers={"Content-disposition":
-                     f"attachment; filename={file_name}"}
+                 f"attachment; filename={file_name}"}
     )
 
 
