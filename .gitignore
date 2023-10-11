@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.idea/
+.vscode/
+
+__archive__
+__reference__
+__other__
+config.json
+users.json
+migrations_laptop
+migrations_desktop
+test.db
+test.py
+
+env*/
+venv*/
+.directory
+.cache/v/cache/lastfailed
+
+*sublime*
+
+docs/_build/*
+
+# uwsgi files for server.
+flicket.ini
+flicket_uswgi.wsgi
+
+# vim
+tags
+
+# script currently has a memory leak.
+temp_populate_database_with_junk.py
+
+# don't store default sqlite db
+flicket.db
+
+models/
+
+
+config.json
