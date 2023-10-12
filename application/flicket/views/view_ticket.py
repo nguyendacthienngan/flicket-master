@@ -30,17 +30,22 @@ from application.flicket.scripts.subscriptions import subscribe_user
 @flicket_bp.route(app.config['FLICKET'] + 'ticket_view/<ticket_id>/<int:page>/', methods=['GET', 'POST'])
 @login_required
 def ticket_view(ticket_id, page=1):
+
     # todo: make sure underscores aren't allowed in usernames as it breaks markdown?
 
     # is ticket number legitimate
     ticket = FlicketTicket.query.filter_by(id=ticket_id).first()
 
     if not ticket:
-        flash(gettext('Cannot find ticket: "%(value)s"', value=ticket_id), category='warning')
+        flash(gettext('Cannot find ticket: "%(value)s"',
+              value=ticket_id), category='warning')
         return redirect(url_for('flicket_bp.tickets'))
 
+    # if ticket.sentiment is null -> predict
+
     # find all replies to ticket.
-    replies = FlicketPost.query.filter_by(ticket_id=ticket_id).order_by(FlicketPost.date_added.asc())
+    replies = FlicketPost.query.filter_by(
+        ticket_id=ticket_id).order_by(FlicketPost.date_added.asc())
 
     # get reply id's
     post_id = request.args.get('post_id')
@@ -51,7 +56,8 @@ def ticket_view(ticket_id, page=1):
 
     # add subscribed user
     if subscribers_form.sub_user.data and subscribers_form.validate_on_submit():
-        user = FlicketUser.query.filter_by(username=subscribers_form.username.data).first()
+        user = FlicketUser.query.filter_by(
+            username=subscribers_form.username.data).first()
         if user:
             if subscribe_user(ticket, user):
                 flash(gettext('User subscribed.'), category='success')
@@ -80,12 +86,14 @@ def ticket_view(ticket_id, page=1):
         if ticket.status_id != form.status.data:
             status = FlicketStatus.query.get(form.status.data)
             ticket.current_status = status
-            add_action(ticket, 'status', data={'status_id': status.id, 'status': status.status})
+            add_action(ticket, 'status', data={
+                       'status_id': status.id, 'status': status.status})
 
         if ticket.ticket_priority_id != form.priority.data:
             priority = FlicketPriority.query.get(form.priority.data)
             ticket.ticket_priority = priority
-            add_action(ticket, 'priority', data={'priority_id': priority.id, 'priority': priority.priority})
+            add_action(ticket, 'priority', data={
+                       'priority_id': priority.id, 'priority': priority.priority})
 
         db.session.add(new_reply)
 

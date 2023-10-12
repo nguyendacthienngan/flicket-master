@@ -19,8 +19,6 @@ from application import app
 from application.flicket.forms.flicket_forms import CreateTicketForm
 from application.flicket.models.flicket_models_ext import FlicketTicketExt
 
-from application.utils.torch_utils import predict_sentiment
-
 # create ticket
 
 

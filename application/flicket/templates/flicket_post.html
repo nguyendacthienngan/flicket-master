@@ -50,7 +50,8 @@
             </div>
 
             <div class="col text-right">
-                {% if ( g.user.id == content.user_id ) or (g.user.is_admin) or (g.user.id == ticket.started_id) %}
+                {{content.sentiment}}
+                <!-- {% if ( g.user.id == content.user_id ) or (g.user.is_admin) or (g.user.id == ticket.started_id) %}
                     {% if post %}
                         <a href="{{ url_for('flicket_bp.edit_post', post_id = content.id) }}">
                             <i class="fas fa-edit"></i>
@@ -70,7 +71,7 @@
                             </a>
                         {%- endif -%}
                     {% endif %}
-                {% endif %}
+                {% endif %} -->
             </div>
 
         </div>

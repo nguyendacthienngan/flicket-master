@@ -11,7 +11,6 @@ from transformers import XLNetTokenizer, XLNetForSequenceClassification
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import torch.nn.functional as F
 MAX_LEN = 512
-class_names = ['negative', 'positive']
 PRE_TRAINED_MODEL_NAME = 'xlnet-base-cased'
 
 model = XLNetForSequenceClassification.from_pretrained(
@@ -54,11 +53,12 @@ def predict_sentiment(text):
 
     outputs = outputs[0][0].cpu().detach()
 
+    # Probabilities: [positive score, negative score]
     probs = F.softmax(outputs, dim=-1).cpu().detach().numpy().tolist()
     _, prediction = torch.max(outputs, dim=-1)
-
-    return prediction
-    # print("Positive score:", probs[1])
-    # print("Negative score:", probs[0])
-    # print(f'Review text: {review_text}')
-    # print(f'Sentiment  : {class_names[prediction]}')
+    class_names = ['negative', 'positive']
+    print("Positive score:", probs[1])
+    print("Negative score:", probs[0])
+    print(f'Review text: {review_text}')
+    print(f'Sentiment  : {class_names[prediction]}')
+    return class_names[prediction]
