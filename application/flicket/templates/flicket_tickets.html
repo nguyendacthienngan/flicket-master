@@ -33,9 +33,9 @@
                   method="post"
                   name="search_ticket">
                 {{ form.hidden_tag() }}
-                <div class="col-md col-6 text-center">
+                <!-- <div class="col-md col-6 text-center">
                     {{ form.department(class="form-control form-control-sm flicket-tickets-content p-0", id="department") }}
-                </div>
+                </div> -->
                 <div class="col-md col-6 text-center">
                     {{ form.category(class="form-control form-control-sm flicket-tickets-content p-0", id="category") }}
                 </div>
@@ -213,6 +213,13 @@
                                    title="ticket number">{{ t.id_zfill }}</a>
                             </div>
                             <div class="col-md-7 col-12 order-md-2 order-4" title="title">
+                                <span>
+                                    {% if (t.sentiment == 'negative') %}
+                                        <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-angry-emoji-emoticon-logo.png') }}">
+                                    {% elif (t.sentiment == 'positive') %}
+                                        <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-messenger-emoji.png') }}">
+                                    {%- endif -%}
+                                    </span>
                                 {{ t.title }}
                             </div>
                             <div class="col-md-2 col-6 order-2 flicket-tickets-content">
