@@ -51,10 +51,8 @@
             <div class="col text-right">
                 {% if (content.sentiment == 'negative') %}
                     <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-angry-emoji-emoticon-logo.png') }}">
-                    <!-- <i class="fas fa-angry" style="color: yellow;"></i> -->
                 {% elif (content.sentiment == 'positive') %}
                     <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-messenger-emoji.png') }}">
-                    <!-- <i class="fas fa-smile" style="color: yellow;"></i> -->
                 {%- endif -%}
                 {% if ( g.user.id == content.user_id ) or (g.user.is_admin) or (g.user.id == ticket.started_id) %}
                     {% if post %}
