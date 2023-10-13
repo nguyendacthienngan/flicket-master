@@ -48,17 +48,3 @@ def ticket_create():
 
     title = gettext('Create Ticket')
     return render_template('flicket_create.html', title=title, form=form)
-
-
-@flicket_bp.route(app.config['FLICKET'] + 'predict/', methods=['GET'])
-@login_required
-def predict():
-    try:
-        prediction = predict_sentiment(
-            'Movie is the worst one I have ever seen!! The story has no meaning at all')
-        data = {'prediction': prediction.item(
-        ), 'class_name': str(prediction.item())}
-        return jsonify(data)
-    except:
-        return jsonify({'error': 'error during prediction'})
-    # return render_template('flicket_create.html', title=title, form=form)

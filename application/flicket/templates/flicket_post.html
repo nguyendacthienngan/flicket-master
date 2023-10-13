@@ -52,7 +52,7 @@
                 {% if (content.sentiment == 'negative') %}
                     <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-angry-emoji-emoticon-logo.png') }}">
                     <!-- <i class="fas fa-angry" style="color: yellow;"></i> -->
-                {% else %}
+                {% elif (content.sentiment == 'positive') %}
                     <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-messenger-emoji.png') }}">
                     <!-- <i class="fas fa-smile" style="color: yellow;"></i> -->
                 {%- endif -%}
