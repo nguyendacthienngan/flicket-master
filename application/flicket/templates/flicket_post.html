@@ -15,8 +15,7 @@
             </div>
             <div class="col text-center">
                 {% if content.user.avatar %}
-                    <img class="flicket-avatar" alt="avatar"
-                         src="{{ url_for('flicket_bp.static', filename='flicket_avatars/') }}{{ content.user.avatar }}">
+                    <img class="flicket-avatar" alt="avatar" src="{{ url_for('flicket_bp.static', filename='flicket_avatars/') }}{{ content.user.avatar }}">
                 {% else %}
                     <img class="flicket-avatar" alt="avatar"
                          src="{{ url_for('flicket_bp.static', filename='flicket_avatars/__default_profile.png') }}">
@@ -50,11 +49,17 @@
             </div>
 
             <div class="col text-right">
-                {{content.sentiment}}
-                <!-- {% if ( g.user.id == content.user_id ) or (g.user.is_admin) or (g.user.id == ticket.started_id) %}
+                {% if (content.sentiment == 'negative') %}
+                    <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-angry-emoji-emoticon-logo.png') }}">
+                    <!-- <i class="fas fa-angry" style="color: yellow;"></i> -->
+                {% else %}
+                    <img class="flicket-sentiment" alt="avatar" src="{{ url_for('flicket_bp.static', filename='icons/facebook-messenger-emoji.png') }}">
+                    <!-- <i class="fas fa-smile" style="color: yellow;"></i> -->
+                {%- endif -%}
+                {% if ( g.user.id == content.user_id ) or (g.user.is_admin) or (g.user.id == ticket.started_id) %}
                     {% if post %}
                         <a href="{{ url_for('flicket_bp.edit_post', post_id = content.id) }}">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-edit" ></i>
                         </a>
                         {% if g.user.is_admin or g.user.is_super_user %}
                             <a href="{{ url_for('flicket_bp.delete_post', post_id = content.id) }}">
@@ -71,7 +76,7 @@
                             </a>
                         {%- endif -%}
                     {% endif %}
-                {% endif %} -->
+                {% endif %}
             </div>
 
         </div>

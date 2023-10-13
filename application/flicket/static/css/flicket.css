@@ -102,6 +102,11 @@ input[type="radio"] {
     color: #0c5460;
 }
 
+.flicket-sentiment {
+    object-fit: contain;
+    width: 20px;
+    height: 20px;
+}
 
 .white_space {
     white-space: pre-wrap;
